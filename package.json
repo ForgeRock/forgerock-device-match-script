@@ -1,0 +1,19 @@
+{
+  "name": "forgerock-device-match",
+  "version": "0.0.1",
+  "description": "A script for matching device profiles.",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src/index.js -d dist",
+    "test": "jest --testMatch='<rootDir>/test/*.test.js'",
+    "watch": "jest --testMatch='<rootDir>/test/*.test.js' --watch"
+  },
+  "author": "Justin Lowery",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "jest": "^25.4.0"
+  }
+}
