@@ -15,5 +15,8 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "jest": "^25.4.0"
+  },
+  "dependencies": {
+    "geolib": "^3.2.1"
   }
 }

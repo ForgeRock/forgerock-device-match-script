@@ -8,8 +8,8 @@ export default {
       "maxTouchPoints": 0,
       "oscpu": null,
       "display": {
-        "width": 1080,
-        "height": 1920,
+        "width": 1080, // changed
+        "height": 1920,// changed
         "pixelDepth": 24,
         "angle": 270
       }
@@ -39,7 +39,7 @@ export default {
     }
   },
   "location": {
-    "latitude": 30.49843,
-    "longitude": -97.639371
+    "latitude": 30.49954,
+    "longitude": -97.639571
   }
 }

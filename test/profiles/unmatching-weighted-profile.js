@@ -3,13 +3,13 @@ export default {
   "metadata": {
     "hardware": {
       "cpuClass": null,
-      "deviceMemory": 8,
+      "deviceMemory": 16, // only changed, but heavily weighted
       "hardwareConcurrency": 16,
       "maxTouchPoints": 0,
       "oscpu": null,
       "display": {
-        "width": 1080,
-        "height": 1920,
+        "width": 1920,
+        "height": 1080,
         "pixelDepth": 24,
         "angle": 270
       }
@@ -26,7 +26,7 @@ export default {
       "vendor": "Google Inc.",
       "vendorSub": "",
       "browserLanguage": null,
-      "plugins": "internal-pdf-viewer;internal-nacl-plugin;"
+      "plugins": "internal-pdf-viewer;mhjfbmdgcfjbbpaeojofohoefgiehjai;internal-nacl-plugin;"
     },
     "platform": {
       "deviceName": "Mac (Browser)",
@@ -39,7 +39,7 @@ export default {
     }
   },
   "location": {
-    "latitude": 30.5300,
-    "longitude": -97.4088
+    "latitude": 30.49843,
+    "longitude": -97.639371
   }
 }
