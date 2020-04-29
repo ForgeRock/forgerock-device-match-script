@@ -1,9 +1,9 @@
-import { metadataMatcher } from '../src/metadata';
-import similarProfile from './profiles/similar-profile';
-import storedProfile from './profiles/stored-profile';
-import unmatchingProfile from './profiles/unmatching-profile';
-import missingPropsProfile from './profiles/missing-props-profile';
-import unmatchingWeightedProfile from './profiles/unmatching-weighted-profile';
+import { metadataMatcher } from '../../src/metadata';
+import similarProfile from '../profiles/similar-profile';
+import storedProfile from '../profiles/stored-profile';
+import unmatchingProfile from '../profiles/unmatching-profile';
+import missingPropsProfile from '../profiles/missing-props-profile';
+import unmatchingWeightedProfile from '../profiles/unmatching-weighted-profile';
 
 const a = { num: 1, undef: undefined, nulla: null, obj: { alpha: 'a', beta: 'b' }, arr: [ 'one', 'two' ] };
 const b = { num: 1, undef: undefined, nulla: null, obj: { alpha: 'a', beta: 'c' }, arr: [ 'one', 'three' ] };
@@ -14,7 +14,7 @@ const attrWeights = {
   'hardwareConcurrency': 3,
   'maxTouchPoints': 2,
   'platform': 3,
-  'userAgent': 2,
+  'userAgent': 'two',
 };
 
 describe('Test simple objects with diverse value types', () => {

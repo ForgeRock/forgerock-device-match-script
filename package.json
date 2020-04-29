@@ -1,12 +1,15 @@
 {
   "name": "forgerock-device-match",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A script for matching device profiles.",
   "main": "index.js",
   "scripts": {
-    "build": "rollup --config",
-    "test": "jest --testMatch='<rootDir>/test/*.test.js'",
-    "watch": "jest test/script.test.js --testMatch='<rootDir>/test/*.test.js' --watch"
+    "build": "npm run test && npm run bundle && npm run test:bundle",
+    "bundle": "rollup --config",
+    "bundle:webpack": "webpack --config webpack.config.js",
+    "test": "jest --testMatch='<rootDir>/test/src/*.test.js'",
+    "test:bundle": "jest --config='test.config.js' --testMatch='<rootDir>/test/dist/*.test.js'",
+    "watch": "jest --testMatch='<rootDir>/test/src/*.test.js' --watch"
   },
   "author": "Justin Lowery",
   "license": "MIT",

@@ -1,5 +1,5 @@
-const incoming = require('./test/profiles/similar-profile');
-const stored = require('./test/profiles/stored-profile');
+const incoming = require('./test/profiles/test-profile');
+const stored = require('./test/profiles/test-profile');
 
 module.exports = {
   globals: {
@@ -11,7 +11,7 @@ module.exports = {
           case 'realm':
             return 'root';
           case 'forgeRock.device.identifier':
-            return '714524572-2799534390-3707617532';
+            return 'ec3f8bbee78406bb-NtheX1L1Z2zjW/c4FrPo3X+zyb97=';
           case 'forgeRock.device.metadata':
             return incoming.metadata;
           case 'forgeRock.device.location':

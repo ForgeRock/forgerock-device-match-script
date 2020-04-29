@@ -1,7 +1,7 @@
-import { locationMatcher } from '../src/location';
-import similarProfile from './profiles/similar-profile';
-import storedProfile from './profiles/stored-profile';
-import unmatchingProfile from './profiles/unmatching-profile';
+import { locationMatcher } from '../../src/location';
+import similarProfile from '../profiles/similar-profile';
+import storedProfile from '../profiles/stored-profile';
+import unmatchingProfile from '../profiles/unmatching-profile';
 
 describe('Test location coordinates matcher with range', () => {
   it('should return true with exact coordinates', () => {

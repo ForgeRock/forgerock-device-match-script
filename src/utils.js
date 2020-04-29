@@ -1,8 +1,10 @@
 export function isPrimitive(val) {
-  const natives = ['boolean', 'string', 'number', 'undefined'];
-  return natives.indexOf(typeof val) !== -1;
+  const primitives = ['boolean', 'string', 'number', 'undefined'];
+  return primitives.indexOf(typeof val) !== -1;
 }
 
 export function getMultiplier(attr, attrWeights) {
-  return attrWeights[attr] || 1;
+  return typeof attrWeights[attr] === 'number'
+    ? attrWeights[attr]
+    : 1;
 }

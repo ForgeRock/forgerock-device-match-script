@@ -680,11 +680,11 @@ var getDistance = unwrapExports(getDistance_1);function locationMatcher() {
     return distance < allowedRadius;
   };
 }function isPrimitive(val) {
-  var natives = ['boolean', 'string', 'number', 'undefined'];
-  return natives.indexOf(_typeof(val)) !== -1;
+  var primitives = ['boolean', 'string', 'number', 'undefined'];
+  return primitives.indexOf(_typeof(val)) !== -1;
 }
 function getMultiplier(attr, attrWeights) {
-  return attrWeights[attr] || 1;
+  return typeof attrWeights[attr] === 'number' ? attrWeights[attr] : 1;
 }function metadataMatcher() {
   var attrWeights = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var maxUnmatchedAttrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -704,16 +704,16 @@ function getMultiplier(attr, attrWeights) {
     }
   }
 
-  function checkForMismatch(a, b, multiplier) {
+  function checkForMismatch(a, b, key) {
     if (a !== b) {
+      var multiplier = getMultiplier(key, attrWeights);
       numOfUnmatchedAttrs = numOfUnmatchedAttrs + multiplier;
     }
   }
 
   function checkValueOrCallNext(incoming, stored, key) {
-    if (isPrimitive(stored)) {
-      var multiplier = getMultiplier(key, attrWeights);
-      checkForMismatch(stored, incoming, multiplier);
+    if (isPrimitive(stored) || stored === null) {
+      checkForMismatch(stored, incoming, key);
     } else if (Array.isArray(stored)) {
       arrayMatch(incoming, stored, key);
     } else {
@@ -722,10 +722,6 @@ function getMultiplier(attr, attrWeights) {
   }
 
   function objectMatch(incoming, stored) {
-    if (!stored) {
-      return checkForMismatch(stored, incoming);
-    }
-
     var keys = Object.keys(stored);
 
     for (var _i = 0, _keys = keys; _i < _keys.length; _i++) {

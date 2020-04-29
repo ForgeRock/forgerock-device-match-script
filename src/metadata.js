@@ -20,16 +20,16 @@ export function metadataMatcher(attrWeights = {}, maxUnmatchedAttrs = 0) {
     }
   }
 
-  function checkForMismatch(a, b, multiplier) {
+  function checkForMismatch(a, b, key) {
     if (a !== b) {
+      const multiplier = getMultiplier(key, attrWeights);
       numOfUnmatchedAttrs = numOfUnmatchedAttrs + multiplier;
     }
   }
 
   function checkValueOrCallNext(incoming, stored, key) {
-    if (isPrimitive(stored)) {
-      let multiplier = getMultiplier(key, attrWeights);
-      checkForMismatch(stored, incoming, multiplier);
+    if (isPrimitive(stored) || stored === null) { // null is not a primitive
+      checkForMismatch(stored, incoming, key);
     } else if (Array.isArray(stored)) {
       arrayMatch(incoming, stored, key);
     } else {
@@ -38,9 +38,6 @@ export function metadataMatcher(attrWeights = {}, maxUnmatchedAttrs = 0) {
   }
 
   function objectMatch(incoming, stored) {
-    // `typeof null` returns "object", so handle this case first
-    if (!stored) { return checkForMismatch(stored, incoming); }
-
     const keys = Object.keys(stored);
     for (const key of keys) {
       if (numOfUnmatchedAttrs > maxUnmatchedAttrs) { break; }

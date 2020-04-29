@@ -30,9 +30,11 @@ if (storedProfiles) {
 
   for (let i = 0; i < storedProfiles.size(); i++) {
     // try-catch due to JSON.parse throwing error with invalid JSON
+    // if we can't parse it, we just continue with the next profile
     try {
       let stored = JSON.parse(storedProfiles.get(i));
 
+      // Find the device profile with the identifier
       if (incoming.identifier === stored.identifier) {
         /**
          * Configure deviceMatcher with your desired settings.
@@ -41,8 +43,8 @@ if (storedProfiles) {
         const config = {
           allowedRadius: 250, // defaults to 100
           attrWeights: {
-            deviceMemory: 3 // all attributes default to 1
-            // ... as many attributes as you want to weight
+            deviceMemory: 3 // `number` only value; all attributes default to 1
+            // ... as many attributes as you want to weigh
           },
           maxUnmatchedAttrs: 2, // default to 0
         };
