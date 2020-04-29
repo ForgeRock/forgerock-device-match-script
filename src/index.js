@@ -27,6 +27,7 @@ const storedProfiles = deviceProfilesDao.getDeviceProfiles(username, realm);
 outcome = 'doesNotExist';
 
 if (storedProfiles) {
+
   for (let i = 0; i < storedProfiles.size(); i++) {
     // try-catch due to JSON.parse throwing error with invalid JSON
     try {
@@ -40,7 +41,7 @@ if (storedProfiles) {
         const config = {
           allowedRadius: 250, // defaults to 100
           attrWeights: {
-            'deviceMemory': 3 // all attributes default to 1
+            deviceMemory: 3 // all attributes default to 1
             // ... as many attributes as you want to weight
           },
           maxUnmatchedAttrs: 2, // default to 0

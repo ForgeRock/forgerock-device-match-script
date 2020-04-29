@@ -4,9 +4,9 @@
   "description": "A script for matching device profiles.",
   "main": "index.js",
   "scripts": {
-    "build": "babel src/index.js -d dist",
+    "build": "rollup --config",
     "test": "jest --testMatch='<rootDir>/test/*.test.js'",
-    "watch": "jest --testMatch='<rootDir>/test/*.test.js' --watch"
+    "watch": "jest test/script.test.js --testMatch='<rootDir>/test/*.test.js' --watch"
   },
   "author": "Justin Lowery",
   "license": "MIT",
@@ -14,9 +14,12 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "jest": "^25.4.0"
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "geolib": "^3.2.1",
+    "jest": "^25.4.0",
+    "rollup": "^2.7.3",
+    "rollup-plugin-babel": "^4.4.0"
   },
-  "dependencies": {
-    "geolib": "^3.2.1"
-  }
+  "dependencies": {}
 }

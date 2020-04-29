@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   "identifier": "714524572-2799534390-3707617532",
   "metadata": {
     "hardware": {
