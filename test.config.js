@@ -7,15 +7,13 @@ module.exports = {
       get: (path) => {
         switch (path) {
           case 'username':
-            return 'tester';
+            return { asString: () => 'tester' };
           case 'realm':
-            return 'root';
-          case 'forgeRock.device.identifier':
-            return 'ec3f8bbee78406bb-NtheX1L1Z2zjW/c4FrPo3X+zyb97=';
-          case 'forgeRock.device.metadata':
-            return incoming.metadata;
-          case 'forgeRock.device.location':
-            return incoming.location;
+            return { asString: () => 'root' };
+          case 'forgeRock.device.profile':
+            return {
+              toString: () => JSON.stringify(incoming)
+            }
         }
       }
     },

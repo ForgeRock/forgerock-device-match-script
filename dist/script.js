@@ -756,13 +756,17 @@ function getMultiplier(attr, attrWeights) {
   var metadata = metadataMatcher(attrWeights, maxUnmatchedAttrs);
   var location = locationMatcher(allowedRadius);
   return [metadata, location];
-}var username = sharedState.get('username');
-var realm = sharedState.get('realm');
-var incoming = {
-  identifier: sharedState.get('forgeRock.device.identifier'),
-  metadata: sharedState.get('forgeRock.device.metadata'),
-  location: sharedState.get('forgeRock.device.location')
-};
+}var username = sharedState.get('username').asString();
+var realm = sharedState.get('realm').asString();
+var incomingJson = sharedState.get('forgeRock.device.profile').toString();
+var incoming = {};
+
+try {
+  incoming = JSON.parse(incomingJson);
+} catch (err) {
+  logger.message("Error parsing incoming profile: ".concat(err.message));
+}
+
 var storedProfiles = deviceProfilesDao.getDeviceProfiles(username, realm);
 outcome = 'doesNotExist';
 
@@ -791,7 +795,7 @@ if (storedProfiles) {
         break;
       }
     } catch (err) {
-      logger.message(err.message);
+      logger.message("Error parsing stored profile: ".concat(err.message));
     }
   }
 }}());

@@ -3,13 +3,19 @@ import { deviceMatcher } from './profile';
 /**
  * Capture data from incoming request
  */
-const username = sharedState.get('username');
-const realm = sharedState.get('realm');
-const incoming = {
-  identifier: sharedState.get('forgeRock.device.identifier'),
-  metadata: sharedState.get('forgeRock.device.metadata'),
-  location: sharedState.get('forgeRock.device.location'),
-};
+const username = sharedState.get('username').asString();
+const realm = sharedState.get('realm').asString();
+/**
+ * To ensure a native JS structure, call `toString` and parse back into an object
+ */
+const incomingJson = sharedState.get('forgeRock.device.profile').toString();
+let incoming = {};
+
+try {
+  incoming = JSON.parse(incomingJson);
+} catch (err) {
+  logger.message(`Error parsing incoming profile: ${err.message}`);
+}
 
 /**
  * Retrieve incoming user's stored profiles API
@@ -41,12 +47,12 @@ if (storedProfiles) {
          * More information can be found in respective files
          */
         const config = {
-          allowedRadius: 250, // defaults to 100
+          allowedRadius: 250, // <number> defaults to 100 meters
           attrWeights: {
-            deviceMemory: 3 // `number` only value; all attributes default to 1
+            deviceMemory: 3 // <number> all attributes default to 1
             // ... as many attributes as you want to weigh
           },
-          maxUnmatchedAttrs: 2, // default to 0
+          maxUnmatchedAttrs: 2, // <number> default to 0
         };
         const [ metadataMatch, locationMatch ] = deviceMatcher(config);
         const isMetadataMatching = metadataMatch(incoming.metadata, stored.metadata);
@@ -61,7 +67,7 @@ if (storedProfiles) {
       /**
        * If JSON parsing error is detected, just log and continue loop.
        */
-      logger.message(err.message);
+      logger.message(`Error parsing stored profile: ${err.message}`);
     }
   }
 }
