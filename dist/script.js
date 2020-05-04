@@ -756,46 +756,57 @@ function getMultiplier(attr, attrWeights) {
   var metadata = metadataMatcher(attrWeights, maxUnmatchedAttrs);
   var location = locationMatcher(allowedRadius);
   return [metadata, location];
-}var username = sharedState.get('username').asString();
-var realm = sharedState.get('realm').asString();
-var incomingJson = sharedState.get('forgeRock.device.profile').toString();
-var incoming = {};
+}outcome = 'doesNotExist';
 
-try {
-  incoming = JSON.parse(incomingJson);
-} catch (err) {
-  logger.message("Error parsing incoming profile: ".concat(err.message));
-}
+function processDeviceProfiles() {
+  var incomingJson = sharedState.get('forgeRock.device.profile').toString();
+  var incoming = null;
 
-var storedProfiles = deviceProfilesDao.getDeviceProfiles(username, realm);
-outcome = 'doesNotExist';
+  try {
+    incoming = JSON.parse(incomingJson);
+  } catch (err) {
+    logger.message("Error parsing incoming profile: ".concat(err.message));
+    return;
+  }
 
-if (storedProfiles) {
+  var username = sharedState.get('username').asString();
+  var realm = sharedState.get('realm').asString();
+  var storedProfiles = deviceProfilesDao.getDeviceProfiles(username, realm);
+
+  if (!storedProfiles) {
+    return;
+  }
+
   for (var i = 0; i < storedProfiles.size(); i++) {
+    var stored = null;
+
     try {
-      var stored = JSON.parse(storedProfiles.get(i));
-
-      if (incoming.identifier === stored.identifier) {
-        var config = {
-          allowedRadius: 250,
-          attrWeights: {
-            deviceMemory: 3
-          },
-          maxUnmatchedAttrs: 2
-        };
-
-        var _deviceMatcher = deviceMatcher(config),
-            _deviceMatcher2 = _slicedToArray(_deviceMatcher, 2),
-            metadataMatch = _deviceMatcher2[0],
-            locationMatch = _deviceMatcher2[1];
-
-        var isMetadataMatching = metadataMatch(incoming.metadata, stored.metadata);
-        var isLocationMatching = locationMatch(incoming.location, stored.location);
-        outcome = isMetadataMatching && isLocationMatching ? 'true' : 'false';
-        break;
-      }
+      stored = JSON.parse(storedProfiles.get(i));
     } catch (err) {
       logger.message("Error parsing stored profile: ".concat(err.message));
+      continue;
+    }
+
+    if (incoming.identifier === stored.identifier) {
+      var config = {
+        allowedRadius: 250,
+        attrWeights: {
+          deviceMemory: 3
+        },
+        maxUnmatchedAttrs: 2
+      };
+
+      var _deviceMatcher = deviceMatcher(config),
+          _deviceMatcher2 = _slicedToArray(_deviceMatcher, 2),
+          metadataMatch = _deviceMatcher2[0],
+          locationMatch = _deviceMatcher2[1];
+
+      var isMetadataMatching = metadataMatch(incoming.metadata, stored.metadata);
+      var isLocationMatching = locationMatch(incoming.location, stored.location);
+      outcome = (isMetadataMatching && isLocationMatching).toString();
+      return;
     }
   }
-}}());
+}
+
+processDeviceProfiles();}());
