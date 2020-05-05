@@ -1,7 +1,7 @@
 {
-  "name": "forgerock-device-match",
+  "name": "forgerock-device-match-script",
   "version": "1.0.0",
-  "description": "A script for matching device profiles.",
+  "description": "A script and development toolkit for AM's Device Match node.",
   "main": "index.js",
   "scripts": {
     "build": "npm run test && npm run bundle && npm run test:bundle",

@@ -1,12 +1,15 @@
 (function(){'use strict';
 
-/**
- * FORGEROCK | DEVICE MATCH SAMPLE SCRIPT
- * For more information, visit https://github.com/cerebrl/forgerock-device-match.
+/** *****************************************************************************
+ * FORGEROCK | AM DEVICE MATCH SCRIPT
+ * This is a generated file. Do not directly modify.
+ * For more information about this file, visit this Github repo:
+ * https://github.com/ForgeRock/forgerock-device-match-script.
  * 
- * If you would like to modify this script or use it as a reference for building
- * your own matching script, we recommend cloning the git repo above to get started.
- */
+ * If you would like to modify this script or use it as a reference
+ * for building your own matching script, we recommend cloning the git
+ * repo above and use it as a development toolkit to get started.
+ ********************************************************************************/
 
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -746,13 +749,11 @@ function getMultiplier(attr, attrWeights) {
 
     return numOfUnmatchedAttrs <= maxUnmatchedAttrs;
   };
-}function deviceMatcher(_ref) {
-  var _ref$allowedRadius = _ref.allowedRadius,
-      allowedRadius = _ref$allowedRadius === void 0 ? 100 : _ref$allowedRadius,
-      _ref$attrWeights = _ref.attrWeights,
-      attrWeights = _ref$attrWeights === void 0 ? {} : _ref$attrWeights,
-      _ref$maxUnmatchedAttr = _ref.maxUnmatchedAttrs,
-      maxUnmatchedAttrs = _ref$maxUnmatchedAttr === void 0 ? 0 : _ref$maxUnmatchedAttr;
+}function deviceMatcher() {
+  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var allowedRadius = config.allowedRadius,
+      attrWeights = config.attrWeights,
+      maxUnmatchedAttrs = config.maxUnmatchedAttrs;
   var metadata = metadataMatcher(attrWeights, maxUnmatchedAttrs);
   var location = locationMatcher(allowedRadius);
   return [metadata, location];
@@ -788,15 +789,7 @@ function processDeviceProfiles() {
     }
 
     if (incoming.identifier === stored.identifier) {
-      var config = {
-        allowedRadius: 250,
-        attrWeights: {
-          deviceMemory: 3
-        },
-        maxUnmatchedAttrs: 2
-      };
-
-      var _deviceMatcher = deviceMatcher(config),
+      var _deviceMatcher = deviceMatcher(),
           _deviceMatcher2 = _slicedToArray(_deviceMatcher, 2),
           metadataMatch = _deviceMatcher2[0],
           locationMatch = _deviceMatcher2[1];

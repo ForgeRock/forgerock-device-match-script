@@ -1,4 +1,16 @@
-import { deviceMatcher } from './profile';
+/** *****************************************************************
+ * The following is a simple but production ready device matching
+ * script for AM. You are welcome to use it as-is, modify or extend.
+ * More info can be found in the README.md of this project
+ *
+ * Global node variables accessible within this scope:
+ * 1. `sharedState` provides access to incoming request
+ * 2. `deviceProfilesDao` provides access to stored profiles
+ * 3. `outcome` variable maps to auth tree node outcomes; values are
+ *    'true', 'false', or 'doesNotExist' (notice _all_ are strings).
+ * ******************************************************************/
+
+ import { deviceMatcher } from './profile';
 
 /**
  * The variable `outcome` is a global variable to which the result of the
@@ -13,7 +25,9 @@ outcome = 'doesNotExist';
 function processDeviceProfiles() {
 
   /**
-   * To ensure a native JS structure, call `toString` and parse back into an object
+   * Get the incoming request's device profile.
+   * Returns serialized JSON (type string); parsing this will result a
+   * native JS object.
    */
   const incomingJson = sharedState.get('forgeRock.device.profile').toString();
   let incoming = null;
@@ -21,49 +35,65 @@ function processDeviceProfiles() {
   try {
     incoming = JSON.parse(incomingJson);
   } catch (err) {
+    // If we can't parse it, just log and exit function
     logger.message(`Error parsing incoming profile: ${err.message}`);
     return;
   }
 
   /**
-   * Retrieve incoming user's stored profiles API
+   * Get the incoming user's username and realm.
+   * Notice the use of `.asString()`.
    */
   const username = sharedState.get('username').asString();
   const realm = sharedState.get('realm').asString();
+
+  /**
+   * Get the user's stored profiles for appropriate realm.
+   * Returns a _special_ object with methods for profile data
+   */
   const storedProfiles = deviceProfilesDao.getDeviceProfiles(username, realm);
 
   if (!storedProfiles) {
     return;
   }
 
+  // NOTE: `.size()` method returns the number of stored profiles
   for (let i = 0; i < storedProfiles.size(); i++) {
-    // If we can't parse it, we just continue with the next profile
     let stored = null;
     try {
       stored = JSON.parse(storedProfiles.get(i));
     } catch (err) {
+      // If we can't parse it, just log and continue with the next profile
       logger.message(`Error parsing stored profile: ${err.message}`);
       continue;
     }
 
-    // Find the device profile with the identifier
+    /**
+     * Find a stored profile with the same identifier.
+     */
     if (incoming.identifier === stored.identifier) {
       /**
-       * Configure deviceMatcher with your desired settings.
-       * More information can be found in respective files
+       * Optionally configure `deviceMatcher` with your desired settings.
+       * More information can be found in this projects README.md.
+       *
+       * const config = {
+       *   allowedRadius: 250, // <number> defaults to 100 meters
+       *   attrWeights: {
+       *     deviceMemory: 3 // <number> all attributes default to 1
+       *     // ... as many attributes as you want to weigh
+       *   },
+       *   maxUnmatchedAttrs: 2, // <number> default to 0
+       * };
+       *
+       * const [metadataMatch, locationMatch] = deviceMatcher(config);
        */
-      const config = {
-        allowedRadius: 250, // <number> defaults to 100 meters
-        attrWeights: {
-          deviceMemory: 3 // <number> all attributes default to 1
-          // ... as many attributes as you want to weigh
-        },
-        maxUnmatchedAttrs: 2, // <number> default to 0
-      };
-      const [metadataMatch, locationMatch] = deviceMatcher(config);
+      const [metadataMatch, locationMatch] = deviceMatcher();
       const isMetadataMatching = metadataMatch(incoming.metadata, stored.metadata);
       const isLocationMatching = locationMatch(incoming.location, stored.location);
 
+      /**
+       * Assign string of 'true' or 'false' respective of the outcome.
+       */
       outcome = (isMetadataMatching && isLocationMatching).toString();
       return;
     }

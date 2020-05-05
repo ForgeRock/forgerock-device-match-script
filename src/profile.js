@@ -9,7 +9,8 @@ import { metadataMatcher } from './metadata';
  * @param {number} config.allowedRadius - allowed radius in meters between two profile locations
  * @returns {function[]} - first function is for metadata match and second is location
  */
-function deviceMatcher({ allowedRadius = 100, attrWeights = {}, maxUnmatchedAttrs = 0 }) {
+function deviceMatcher(config = {}) {
+  let { allowedRadius, attrWeights, maxUnmatchedAttrs } = config;
   let metadata = metadataMatcher(attrWeights, maxUnmatchedAttrs);
   let location = locationMatcher(allowedRadius);
 

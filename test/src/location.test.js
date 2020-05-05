@@ -5,7 +5,7 @@ import unmatchingProfile from '../profiles/unmatching-profile';
 
 describe('Test location coordinates matcher with range', () => {
   it('should return true with exact coordinates', () => {
-    const locationMatch = locationMatcher(200);
+    const locationMatch = locationMatcher();
     expect(locationMatch(storedProfile.location, storedProfile.location)).toBe(true);
   });
 

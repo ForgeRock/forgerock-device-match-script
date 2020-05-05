@@ -19,7 +19,7 @@ const attrWeights = {
 
 describe('Test simple objects with diverse value types', () => {
   it('should return true for exact profile match', () => {
-    const metadataMatch = metadataMatcher({}, 2);
+    const metadataMatch = metadataMatcher();
     expect(metadataMatch(a, a)).toBe(true);
   });
 
