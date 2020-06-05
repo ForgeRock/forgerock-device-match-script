@@ -6,7 +6,6 @@
   "scripts": {
     "build": "npm run test && npm run bundle && npm run test:bundle",
     "bundle": "rollup --config",
-    "bundle:webpack": "webpack --config webpack.config.js",
     "test": "jest --testMatch='<rootDir>/test/src/*.test.js'",
     "test:bundle": "jest --config='test.config.js' --testMatch='<rootDir>/test/dist/*.test.js'",
     "watch": "jest --testMatch='<rootDir>/test/src/*.test.js' --watch"
