@@ -1,15 +1,24 @@
 (function(){'use strict';
 
-/** *****************************************************************************
+/** ************************************************************************
  * FORGEROCK | AM DEVICE MATCH SCRIPT
- * This is a generated file. Do not directly modify.
+ * 
+ * script.js
+ * 
+ *  Copyright (c) 2020 ForgeRock. All rights reserved.
+ *  This software may be modified and distributed under the terms
+ *  of the MIT license. See the LICENSE file for details.
+ * 
+ * *************************************************************************
+ * 
+ * THIS IS A GENERATED FILE. Do not directly modify.
  * For more information about this file, visit this Github repo:
  * https://github.com/ForgeRock/forgerock-device-match-script.
  * 
  * If you would like to modify this script or use it as a reference
  * for building your own matching script, we recommend cloning the git
  * repo above and use it as a development toolkit to get started.
- ********************************************************************************/
+ * *************************************************************************/
 
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -67,7 +76,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -81,12 +90,22 @@ function _arrayLikeToArray(arr, len) {
 
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}function unwrapExports (x) {
+}function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+function createCommonjsModule(fn, basedir, module) {
+	return module = {
+	  path: basedir,
+	  exports: {},
+	  require: function (path, base) {
+      return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+    }
+	}, fn(module, module.exports), module.exports;
+}
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
 }var constants = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
@@ -145,19 +164,7 @@ function createCommonjsModule(fn, module) {
   areaConversion.sqyd = areaConversion.yd2;
   areaConversion.sqin = areaConversion.in2;
 });
-unwrapExports(constants);
-var constants_1 = constants.areaConversion;
-var constants_2 = constants.timeConversion;
-var constants_3 = constants.distanceConversion;
-var constants_4 = constants.altitudeKeys;
-var constants_5 = constants.latitudeKeys;
-var constants_6 = constants.longitudeKeys;
-var constants_7 = constants.MAXLON;
-var constants_8 = constants.MINLON;
-var constants_9 = constants.MAXLAT;
-var constants_10 = constants.MINLAT;
-var constants_11 = constants.earthRadius;
-var constants_12 = constants.sexagesimalPattern;var getCoordinateKey_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(constants);var getCoordinateKey_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -182,7 +189,7 @@ var constants_12 = constants.sexagesimalPattern;var getCoordinateKey_1 = createC
   var _default = getCoordinateKey;
   exports.default = _default;
 });
-unwrapExports(getCoordinateKey_1);var isDecimal_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(getCoordinateKey_1);var isDecimal_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -202,7 +209,7 @@ unwrapExports(getCoordinateKey_1);var isDecimal_1 = createCommonjsModule(functio
   var _default = isDecimal;
   exports.default = _default;
 });
-unwrapExports(isDecimal_1);var isSexagesimal_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(isDecimal_1);var isSexagesimal_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -216,7 +223,7 @@ unwrapExports(isDecimal_1);var isSexagesimal_1 = createCommonjsModule(function (
   var _default = isSexagesimal;
   exports.default = _default;
 });
-unwrapExports(isSexagesimal_1);var sexagesimalToDecimal_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(isSexagesimal_1);var sexagesimalToDecimal_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -239,7 +246,7 @@ unwrapExports(isSexagesimal_1);var sexagesimalToDecimal_1 = createCommonjsModule
   var _default = sexagesimalToDecimal;
   exports.default = _default;
 });
-unwrapExports(sexagesimalToDecimal_1);var getCoordinateKeys_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(sexagesimalToDecimal_1);var getCoordinateKeys_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -323,7 +330,7 @@ unwrapExports(sexagesimalToDecimal_1);var getCoordinateKeys_1 = createCommonjsMo
   var _default = getCoordinateKeys;
   exports.default = _default;
 });
-unwrapExports(getCoordinateKeys_1);var isValidLatitude_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(getCoordinateKeys_1);var isValidLatitude_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -361,7 +368,7 @@ unwrapExports(getCoordinateKeys_1);var isValidLatitude_1 = createCommonjsModule(
   var _default = isValidLatitude;
   exports.default = _default;
 });
-unwrapExports(isValidLatitude_1);var isValidLongitude_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(isValidLatitude_1);var isValidLongitude_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -399,7 +406,7 @@ unwrapExports(isValidLatitude_1);var isValidLongitude_1 = createCommonjsModule(f
   var _default = isValidLongitude;
   exports.default = _default;
 });
-unwrapExports(isValidLongitude_1);var isValidCoordinate_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(isValidLongitude_1);var isValidCoordinate_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -448,7 +455,7 @@ unwrapExports(isValidLongitude_1);var isValidCoordinate_1 = createCommonjsModule
   var _default = isValidCoordinate;
   exports.default = _default;
 });
-unwrapExports(isValidCoordinate_1);var toDecimal_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(isValidCoordinate_1);var toDecimal_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -538,7 +545,7 @@ unwrapExports(isValidCoordinate_1);var toDecimal_1 = createCommonjsModule(functi
         });
       }
 
-      return _objectSpread({}, value, {}, keys.latitude && _defineProperty({}, keys.latitude, toDecimal(value[keys.latitude])), {}, keys.longitude && _defineProperty({}, keys.longitude, toDecimal(value[keys.longitude])));
+      return _objectSpread(_objectSpread(_objectSpread({}, value), keys.latitude && _defineProperty({}, keys.latitude, toDecimal(value[keys.latitude]))), keys.longitude && _defineProperty({}, keys.longitude, toDecimal(value[keys.longitude])));
     }
 
     if (Array.isArray(value)) {
@@ -553,7 +560,7 @@ unwrapExports(isValidCoordinate_1);var toDecimal_1 = createCommonjsModule(functi
   var _default = toDecimal;
   exports.default = _default;
 });
-unwrapExports(toDecimal_1);var getLatitude_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(toDecimal_1);var getLatitude_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -584,7 +591,7 @@ unwrapExports(toDecimal_1);var getLatitude_1 = createCommonjsModule(function (mo
   var _default = getLatitude;
   exports.default = _default;
 });
-unwrapExports(getLatitude_1);var getLongitude_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(getLatitude_1);var getLongitude_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -615,7 +622,7 @@ unwrapExports(getLatitude_1);var getLongitude_1 = createCommonjsModule(function 
   var _default = getLongitude;
   exports.default = _default;
 });
-unwrapExports(getLongitude_1);var toRad_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(getLongitude_1);var toRad_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -629,7 +636,29 @@ unwrapExports(getLongitude_1);var toRad_1 = createCommonjsModule(function (modul
   var _default = toRad;
   exports.default = _default;
 });
-unwrapExports(toRad_1);var getDistance_1 = createCommonjsModule(function (module, exports) {
+getDefaultExportFromCjs(toRad_1);var robustAcos_1 = createCommonjsModule(function (module, exports) {
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var robustAcos = function robustAcos(value) {
+    if (value > 1) {
+      return 1;
+    }
+
+    if (value < -1) {
+      return -1;
+    }
+
+    return value;
+  };
+
+  var _default = robustAcos;
+  exports.default = _default;
+});
+getDefaultExportFromCjs(robustAcos_1);var getDistance_1 = createCommonjsModule(function (module, exports) {
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -642,23 +671,13 @@ unwrapExports(toRad_1);var getDistance_1 = createCommonjsModule(function (module
 
   var _toRad = _interopRequireDefault(toRad_1);
 
+  var _robustAcos = _interopRequireDefault(robustAcos_1);
+
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
       default: obj
     };
   }
-
-  var normalizeACosArg = function normalizeACosArg(val) {
-    if (val > 1) {
-      return 1;
-    }
-
-    if (val < -1) {
-      return -1;
-    }
-
-    return val;
-  };
 
   var getDistance = function getDistance(from, to) {
     var accuracy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
@@ -668,7 +687,7 @@ unwrapExports(toRad_1);var getDistance_1 = createCommonjsModule(function (module
     var toLat = (0, _getLatitude.default)(to);
     var toLon = (0, _getLongitude.default)(to);
 
-    var distance = Math.acos(normalizeACosArg(Math.sin((0, _toRad.default)(toLat)) * Math.sin((0, _toRad.default)(fromLat)) + Math.cos((0, _toRad.default)(toLat)) * Math.cos((0, _toRad.default)(fromLat)) * Math.cos((0, _toRad.default)(fromLon) - (0, _toRad.default)(toLon)))) * constants.earthRadius;
+    var distance = Math.acos((0, _robustAcos.default)(Math.sin((0, _toRad.default)(toLat)) * Math.sin((0, _toRad.default)(fromLat)) + Math.cos((0, _toRad.default)(toLat)) * Math.cos((0, _toRad.default)(fromLat)) * Math.cos((0, _toRad.default)(fromLon) - (0, _toRad.default)(toLon)))) * constants.earthRadius;
 
     return Math.round(distance / accuracy) * accuracy;
   };
@@ -676,7 +695,7 @@ unwrapExports(toRad_1);var getDistance_1 = createCommonjsModule(function (module
   var _default = getDistance;
   exports.default = _default;
 });
-var getDistance = unwrapExports(getDistance_1);function locationMatcher() {
+var getDistance = getDefaultExportFromCjs(getDistance_1);function locationMatcher() {
   var allowedRadius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
   return function location(incoming, stored) {
     var distance = getDistance(incoming, stored);

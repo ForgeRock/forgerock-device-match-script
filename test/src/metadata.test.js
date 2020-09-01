@@ -1,3 +1,13 @@
+/*
+ * forgerock-device-match-script
+ *
+ * metadata.test.js
+ *
+ * Copyright (c) 2020 ForgeRock. All rights reserved.
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
 import { metadataMatcher } from '../../src/metadata';
 import similarProfile from '../profiles/similar-profile';
 import storedProfile from '../profiles/stored-profile';
