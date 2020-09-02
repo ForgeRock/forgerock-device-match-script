@@ -1,4 +1,14 @@
 /** *****************************************************************
+ * forgerock-device-match-script
+ *
+ * index.js
+ *
+ * Copyright (c) 2020 ForgeRock. All rights reserved.
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ *
+ * ******************************************************************
+ *
  * The following is a simple but production ready device matching
  * script for AM. You are welcome to use it as-is, modify or extend.
  * More info can be found in the README.md of this project

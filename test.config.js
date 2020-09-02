@@ -24,7 +24,15 @@ module.exports = {
       })
     },
     logger: {
-      message: () => {}
+      message: (txt) => {
+        console.log(txt);
+      },
+      debug: (txt) => {
+        console.debug(txt);
+      },
+      error: (txt) => {
+        console.error(txt);
+      }
     },
     outcome: ''
   },
