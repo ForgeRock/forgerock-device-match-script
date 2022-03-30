@@ -17,20 +17,20 @@
  * 1. `sharedState` provides access to incoming request
  * 2. `deviceProfilesDao` provides access to stored profiles
  * 3. `outcome` variable maps to auth tree node outcomes; values are
- *    'true', 'false', or 'doesNotExist' (notice _all_ are strings).
+ *    'true', 'false', or 'unknownDevice' (notice _all_ are strings).
  * ******************************************************************/
 
  import { deviceMatcher } from './profile';
 
 /**
  * The variable `outcome` is a global variable to which the result of the
- * matching is assigned. The values are 'true', 'false' or 'doesNotExist',
+ * matching is assigned. The values are 'true', 'false' or 'unknownDevice',
  * notice the values are of type `string`.
  *
- * Here, we are going to default to 'doesNotExist', which allows us to
+ * Here, we are going to default to 'unknownDevice', which allows us to
  * only worry about the condition of finding the profile
  */
-outcome = 'doesNotExist';
+outcome = 'unknownDevice';
 
 function processDeviceProfiles() {
 
