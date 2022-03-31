@@ -23,17 +23,11 @@
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function (obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function (obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
 }
 
 function _slicedToArray(arr, i) {
@@ -45,14 +39,17 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
-  var _e = undefined;
+
+  var _s, _e;
 
   try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
 
       if (i && _arr.length === i) break;
@@ -90,615 +87,550 @@ function _arrayLikeToArray(arr, len) {
 
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}var getDistance$1 = {};var getLatitude$1 = {};var constants = {};Object.defineProperty(constants, "__esModule", {
+  value: true
+});
+constants.areaConversion = constants.timeConversion = constants.distanceConversion = constants.altitudeKeys = constants.latitudeKeys = constants.longitudeKeys = constants.MAXLON = constants.MINLON = constants.MAXLAT = constants.MINLAT = constants.earthRadius = constants.sexagesimalPattern = void 0;
+var sexagesimalPattern = /^([0-9]{1,3})°\s*([0-9]{1,3}(?:\.(?:[0-9]{1,}))?)['′]\s*(([0-9]{1,3}(\.([0-9]{1,}))?)["″]\s*)?([NEOSW]?)$/;
+constants.sexagesimalPattern = sexagesimalPattern;
+var earthRadius = 6378137;
+constants.earthRadius = earthRadius;
+var MINLAT = -90;
+constants.MINLAT = MINLAT;
+var MAXLAT = 90;
+constants.MAXLAT = MAXLAT;
+var MINLON = -180;
+constants.MINLON = MINLON;
+var MAXLON = 180;
+constants.MAXLON = MAXLON;
+var longitudeKeys = ["lng", "lon", "longitude", 0];
+constants.longitudeKeys = longitudeKeys;
+var latitudeKeys = ["lat", "latitude", 1];
+constants.latitudeKeys = latitudeKeys;
+var altitudeKeys = ["alt", "altitude", "elevation", "elev", 2];
+constants.altitudeKeys = altitudeKeys;
+var distanceConversion = {
+  m: 1,
+  km: 0.001,
+  cm: 100,
+  mm: 1000,
+  mi: 1 / 1609.344,
+  sm: 1 / 1852.216,
+  ft: 100 / 30.48,
+  in: 100 / 2.54,
+  yd: 1 / 0.9144
+};
+constants.distanceConversion = distanceConversion;
+var timeConversion = {
+  m: 60,
+  h: 3600,
+  d: 86400
+};
+constants.timeConversion = timeConversion;
+var areaConversion = {
+  m2: 1,
+  km2: 0.000001,
+  ha: 0.0001,
+  a: 0.01,
+  ft2: 10.763911,
+  yd2: 1.19599,
+  in2: 1550.0031
+};
+constants.areaConversion = areaConversion;
+areaConversion.sqm = areaConversion.m2;
+areaConversion.sqkm = areaConversion.km2;
+areaConversion.sqft = areaConversion.ft2;
+areaConversion.sqyd = areaConversion.yd2;
+areaConversion.sqin = areaConversion.in2;var getCoordinateKey$1 = {};Object.defineProperty(getCoordinateKey$1, "__esModule", {
+  value: true
+});
+getCoordinateKey$1.default = void 0;
+
+var getCoordinateKey = function getCoordinateKey(point, keysToLookup) {
+  return keysToLookup.reduce(function (foundKey, key) {
+    if (typeof point === "undefined" || point === null) {
+      throw new Error("'".concat(point, "' is no valid coordinate."));
+    }
+
+    if (Object.prototype.hasOwnProperty.call(point, key) && typeof key !== "undefined" && typeof foundKey === "undefined") {
+      foundKey = key;
+      return key;
+    }
+
+    return foundKey;
+  }, undefined);
+};
+
+var _default$d = getCoordinateKey;
+getCoordinateKey$1.default = _default$d;var toDecimal$1 = {};var isDecimal$1 = {};Object.defineProperty(isDecimal$1, "__esModule", {
+  value: true
+});
+isDecimal$1.default = void 0;
+
+var isDecimal = function isDecimal(value) {
+  var checkedValue = value.toString().trim();
+
+  if (isNaN(parseFloat(checkedValue))) {
+    return false;
+  }
+
+  return parseFloat(checkedValue) === Number(checkedValue);
+};
+
+var _default$c = isDecimal;
+isDecimal$1.default = _default$c;var isSexagesimal$1 = {};Object.defineProperty(isSexagesimal$1, "__esModule", {
+  value: true
+});
+isSexagesimal$1.default = void 0;
+var _constants$7 = constants;
+
+var isSexagesimal = function isSexagesimal(value) {
+  return _constants$7.sexagesimalPattern.test(value.toString().trim());
+};
+
+var _default$b = isSexagesimal;
+isSexagesimal$1.default = _default$b;var sexagesimalToDecimal$1 = {};Object.defineProperty(sexagesimalToDecimal$1, "__esModule", {
+  value: true
+});
+sexagesimalToDecimal$1.default = void 0;
+var _constants$6 = constants;
+
+var sexagesimalToDecimal = function sexagesimalToDecimal(sexagesimal) {
+  var data = new RegExp(_constants$6.sexagesimalPattern).exec(sexagesimal.toString().trim());
+
+  if (typeof data === "undefined" || data === null) {
+    throw new Error("Given value is not in sexagesimal format");
+  }
+
+  var min = Number(data[2]) / 60 || 0;
+  var sec = Number(data[4]) / 3600 || 0;
+  var decimal = parseFloat(data[1]) + min + sec;
+  return ["S", "W"].includes(data[7]) ? -decimal : decimal;
+};
+
+var _default$a = sexagesimalToDecimal;
+sexagesimalToDecimal$1.default = _default$a;var isValidCoordinate$1 = {};var getCoordinateKeys$1 = {};Object.defineProperty(getCoordinateKeys$1, "__esModule", {
+  value: true
+});
+getCoordinateKeys$1.default = void 0;
+var _constants$5 = constants;
+
+var _getCoordinateKey$2 = _interopRequireDefault$7(getCoordinateKey$1);
+
+function _interopRequireDefault$7(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
 }
 
-function createCommonjsModule(fn, basedir, module) {
-	return module = {
-	  path: basedir,
-	  exports: {},
-	  require: function (path, base) {
-      return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
-    }
-	}, fn(module, module.exports), module.exports;
+function ownKeys$1(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
 }
 
-function commonjsRequire () {
-	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
-}var constants = createCommonjsModule(function (module, exports) {
+function _objectSpread$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.areaConversion = exports.timeConversion = exports.distanceConversion = exports.altitudeKeys = exports.latitudeKeys = exports.longitudeKeys = exports.MAXLON = exports.MINLON = exports.MAXLAT = exports.MINLAT = exports.earthRadius = exports.sexagesimalPattern = void 0;
-  var sexagesimalPattern = /^([0-9]{1,3})°\s*([0-9]{1,3}(?:\.(?:[0-9]{1,}))?)['′]\s*(([0-9]{1,3}(\.([0-9]{1,}))?)["″]\s*)?([NEOSW]?)$/;
-  exports.sexagesimalPattern = sexagesimalPattern;
-  var earthRadius = 6378137;
-  exports.earthRadius = earthRadius;
-  var MINLAT = -90;
-  exports.MINLAT = MINLAT;
-  var MAXLAT = 90;
-  exports.MAXLAT = MAXLAT;
-  var MINLON = -180;
-  exports.MINLON = MINLON;
-  var MAXLON = 180;
-  exports.MAXLON = MAXLON;
-  var longitudeKeys = ["lng", "lon", "longitude", 0];
-  exports.longitudeKeys = longitudeKeys;
-  var latitudeKeys = ["lat", "latitude", 1];
-  exports.latitudeKeys = latitudeKeys;
-  var altitudeKeys = ["alt", "altitude", "elevation", "elev", 2];
-  exports.altitudeKeys = altitudeKeys;
-  var distanceConversion = {
-    m: 1,
-    km: 0.001,
-    cm: 100,
-    mm: 1000,
-    mi: 1 / 1609.344,
-    sm: 1 / 1852.216,
-    ft: 100 / 30.48,
-    in: 100 / 2.54,
-    yd: 1 / 0.9144
-  };
-  exports.distanceConversion = distanceConversion;
-  var timeConversion = {
-    m: 60,
-    h: 3600,
-    d: 86400
-  };
-  exports.timeConversion = timeConversion;
-  var areaConversion = {
-    m2: 1,
-    km2: 0.000001,
-    ha: 0.0001,
-    a: 0.01,
-    ft2: 10.763911,
-    yd2: 1.19599,
-    in2: 1550.0031
-  };
-  exports.areaConversion = areaConversion;
-  areaConversion.sqm = areaConversion.m2;
-  areaConversion.sqkm = areaConversion.km2;
-  areaConversion.sqft = areaConversion.ft2;
-  areaConversion.sqyd = areaConversion.yd2;
-  areaConversion.sqin = areaConversion.in2;
-});
-getDefaultExportFromCjs(constants);var getCoordinateKey_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var getCoordinateKey = function getCoordinateKey(point, keysToLookup) {
-    return keysToLookup.reduce(function (foundKey, key) {
-      if (typeof point === "undefined" || point === null) {
-        throw new Error("'".concat(point, "' is no valid coordinate."));
-      }
-
-      if (Object.prototype.hasOwnProperty.call(point, key) && typeof key !== "undefined" && typeof foundKey === "undefined") {
-        foundKey = key;
-        return key;
-      }
-
-      return foundKey;
-    }, undefined);
-  };
-
-  var _default = getCoordinateKey;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(getCoordinateKey_1);var isDecimal_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var isDecimal = function isDecimal(value) {
-    var checkedValue = value.toString().trim();
-
-    if (isNaN(parseFloat(checkedValue))) {
-      return false;
-    }
-
-    return parseFloat(checkedValue) === Number(checkedValue);
-  };
-
-  var _default = isDecimal;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(isDecimal_1);var isSexagesimal_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var isSexagesimal = function isSexagesimal(value) {
-    return constants.sexagesimalPattern.test(value.toString().trim());
-  };
-
-  var _default = isSexagesimal;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(isSexagesimal_1);var sexagesimalToDecimal_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var sexagesimalToDecimal = function sexagesimalToDecimal(sexagesimal) {
-    var data = new RegExp(constants.sexagesimalPattern).exec(sexagesimal);
-
-    if (typeof data === "undefined" || data === null) {
-      throw new Error("Given value is not in sexagesimal format");
-    }
-
-    var min = Number(data[2]) / 60 || 0;
-    var sec = Number(data[4]) / 3600 || 0;
-    var decimal = parseFloat(data[1]) + min + sec;
-    return ["S", "W"].includes(data[7]) ? -decimal : decimal;
-  };
-
-  var _default = sexagesimalToDecimal;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(sexagesimalToDecimal_1);var getCoordinateKeys_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _getCoordinateKey = _interopRequireDefault(getCoordinateKey_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    if (i % 2) {
+      ownKeys$1(Object(source), true).forEach(function (key) {
+        _defineProperty$1(target, key, source[key]);
       });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
-  }
-
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      obj[key] = value;
+      ownKeys$1(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
     }
-
-    return obj;
   }
 
-  var getCoordinateKeys = function getCoordinateKeys(point) {
-    var keysToLookup = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-      longitude: constants.longitudeKeys,
-      latitude: constants.latitudeKeys,
-      altitude: constants.altitudeKeys
-    };
-    var longitude = (0, _getCoordinateKey.default)(point, keysToLookup.longitude);
-    var latitude = (0, _getCoordinateKey.default)(point, keysToLookup.latitude);
-    var altitude = (0, _getCoordinateKey.default)(point, keysToLookup.altitude);
-    return _objectSpread({
-      latitude: latitude,
-      longitude: longitude
-    }, altitude ? {
-      altitude: altitude
-    } : {});
+  return target;
+}
+
+function _defineProperty$1(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var getCoordinateKeys = function getCoordinateKeys(point) {
+  var keysToLookup = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    longitude: _constants$5.longitudeKeys,
+    latitude: _constants$5.latitudeKeys,
+    altitude: _constants$5.altitudeKeys
   };
+  var longitude = (0, _getCoordinateKey$2.default)(point, keysToLookup.longitude);
+  var latitude = (0, _getCoordinateKey$2.default)(point, keysToLookup.latitude);
+  var altitude = (0, _getCoordinateKey$2.default)(point, keysToLookup.altitude);
+  return _objectSpread$1({
+    latitude: latitude,
+    longitude: longitude
+  }, altitude ? {
+    altitude: altitude
+  } : {});
+};
 
-  var _default = getCoordinateKeys;
-  exports.default = _default;
+var _default$9 = getCoordinateKeys;
+getCoordinateKeys$1.default = _default$9;var isValidLatitude$1 = {};Object.defineProperty(isValidLatitude$1, "__esModule", {
+  value: true
 });
-getDefaultExportFromCjs(getCoordinateKeys_1);var isValidLatitude_1 = createCommonjsModule(function (module, exports) {
+isValidLatitude$1.default = void 0;
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
+var _isDecimal$2 = _interopRequireDefault$6(isDecimal$1);
 
-  var _isDecimal = _interopRequireDefault(isDecimal_1);
+var _isSexagesimal$2 = _interopRequireDefault$6(isSexagesimal$1);
 
-  var _isSexagesimal = _interopRequireDefault(isSexagesimal_1);
+var _sexagesimalToDecimal$2 = _interopRequireDefault$6(sexagesimalToDecimal$1);
 
-  var _sexagesimalToDecimal = _interopRequireDefault(sexagesimalToDecimal_1);
+var _constants$4 = constants;
 
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var isValidLatitude = function isValidLatitude(value) {
-    if ((0, _isDecimal.default)(value)) {
-      if (parseFloat(value) > constants.MAXLAT || value < constants.MINLAT) {
-        return false;
-      }
-
-      return true;
-    }
-
-    if ((0, _isSexagesimal.default)(value)) {
-      return isValidLatitude((0, _sexagesimalToDecimal.default)(value));
-    }
-
-    return false;
+function _interopRequireDefault$6(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
   };
+}
 
-  var _default = isValidLatitude;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(isValidLatitude_1);var isValidLongitude_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _isDecimal = _interopRequireDefault(isDecimal_1);
-
-  var _isSexagesimal = _interopRequireDefault(isSexagesimal_1);
-
-  var _sexagesimalToDecimal = _interopRequireDefault(sexagesimalToDecimal_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var isValidLongitude = function isValidLongitude(value) {
-    if ((0, _isDecimal.default)(value)) {
-      if (parseFloat(value) > constants.MAXLON || value < constants.MINLON) {
-        return false;
-      }
-
-      return true;
-    }
-
-    if ((0, _isSexagesimal.default)(value)) {
-      return isValidLongitude((0, _sexagesimalToDecimal.default)(value));
-    }
-
-    return false;
-  };
-
-  var _default = isValidLongitude;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(isValidLongitude_1);var isValidCoordinate_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _getCoordinateKeys2 = _interopRequireDefault(getCoordinateKeys_1);
-
-  var _isValidLatitude = _interopRequireDefault(isValidLatitude_1);
-
-  var _isValidLongitude = _interopRequireDefault(isValidLongitude_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var isValidCoordinate = function isValidCoordinate(point) {
-    var _getCoordinateKeys = (0, _getCoordinateKeys2.default)(point),
-        latitude = _getCoordinateKeys.latitude,
-        longitude = _getCoordinateKeys.longitude;
-
-    if (Array.isArray(point) && point.length >= 2) {
-      return (0, _isValidLongitude.default)(point[0]) && (0, _isValidLatitude.default)(point[1]);
-    }
-
-    if (typeof latitude === "undefined" || typeof longitude === "undefined") {
-      return false;
-    }
-
-    var lon = point[longitude];
-    var lat = point[latitude];
-
-    if (typeof lat === "undefined" || typeof lon === "undefined") {
-      return false;
-    }
-
-    if ((0, _isValidLatitude.default)(lat) === false || (0, _isValidLongitude.default)(lon) === false) {
+var isValidLatitude = function isValidLatitude(value) {
+  if ((0, _isDecimal$2.default)(value)) {
+    if (parseFloat(value) > _constants$4.MAXLAT || value < _constants$4.MINLAT) {
       return false;
     }
 
     return true;
-  };
+  }
 
-  var _default = isValidCoordinate;
-  exports.default = _default;
+  if ((0, _isSexagesimal$2.default)(value)) {
+    return isValidLatitude((0, _sexagesimalToDecimal$2.default)(value));
+  }
+
+  return false;
+};
+
+var _default$8 = isValidLatitude;
+isValidLatitude$1.default = _default$8;var isValidLongitude$1 = {};Object.defineProperty(isValidLongitude$1, "__esModule", {
+  value: true
 });
-getDefaultExportFromCjs(isValidCoordinate_1);var toDecimal_1 = createCommonjsModule(function (module, exports) {
+isValidLongitude$1.default = void 0;
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
+var _isDecimal$1 = _interopRequireDefault$5(isDecimal$1);
 
-  var _isDecimal = _interopRequireDefault(isDecimal_1);
+var _isSexagesimal$1 = _interopRequireDefault$5(isSexagesimal$1);
 
-  var _isSexagesimal = _interopRequireDefault(isSexagesimal_1);
+var _sexagesimalToDecimal$1 = _interopRequireDefault$5(sexagesimalToDecimal$1);
 
-  var _sexagesimalToDecimal = _interopRequireDefault(sexagesimalToDecimal_1);
+var _constants$3 = constants;
 
-  var _isValidCoordinate = _interopRequireDefault(isValidCoordinate_1);
+function _interopRequireDefault$5(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
 
-  var _getCoordinateKeys = _interopRequireDefault(getCoordinateKeys_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
+var isValidLongitude = function isValidLongitude(value) {
+  if ((0, _isDecimal$1.default)(value)) {
+    if (parseFloat(value) > _constants$3.MAXLON || value < _constants$3.MINLON) {
+      return false;
     }
 
-    return keys;
+    return true;
   }
 
-  function _objectSpread(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
+  if ((0, _isSexagesimal$1.default)(value)) {
+    return isValidLongitude((0, _sexagesimalToDecimal$1.default)(value));
   }
 
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
+  return false;
+};
+
+var _default$7 = isValidLongitude;
+isValidLongitude$1.default = _default$7;Object.defineProperty(isValidCoordinate$1, "__esModule", {
+  value: true
+});
+isValidCoordinate$1.default = void 0;
+
+var _getCoordinateKeys2 = _interopRequireDefault$4(getCoordinateKeys$1);
+
+var _isValidLatitude = _interopRequireDefault$4(isValidLatitude$1);
+
+var _isValidLongitude = _interopRequireDefault$4(isValidLongitude$1);
+
+function _interopRequireDefault$4(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+var isValidCoordinate = function isValidCoordinate(point) {
+  var _getCoordinateKeys = (0, _getCoordinateKeys2.default)(point),
+      latitude = _getCoordinateKeys.latitude,
+      longitude = _getCoordinateKeys.longitude;
+
+  if (Array.isArray(point) && point.length >= 2) {
+    return (0, _isValidLongitude.default)(point[0]) && (0, _isValidLatitude.default)(point[1]);
+  }
+
+  if (typeof latitude === "undefined" || typeof longitude === "undefined") {
+    return false;
+  }
+
+  var lon = point[longitude];
+  var lat = point[latitude];
+
+  if (typeof lat === "undefined" || typeof lon === "undefined") {
+    return false;
+  }
+
+  if ((0, _isValidLatitude.default)(lat) === false || (0, _isValidLongitude.default)(lon) === false) {
+    return false;
+  }
+
+  return true;
+};
+
+var _default$6 = isValidCoordinate;
+isValidCoordinate$1.default = _default$6;Object.defineProperty(toDecimal$1, "__esModule", {
+  value: true
+});
+toDecimal$1.default = void 0;
+
+var _isDecimal = _interopRequireDefault$3(isDecimal$1);
+
+var _isSexagesimal = _interopRequireDefault$3(isSexagesimal$1);
+
+var _sexagesimalToDecimal = _interopRequireDefault$3(sexagesimalToDecimal$1);
+
+var _isValidCoordinate = _interopRequireDefault$3(isValidCoordinate$1);
+
+var _getCoordinateKeys = _interopRequireDefault$3(getCoordinateKeys$1);
+
+function _interopRequireDefault$3(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
       });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      obj[key] = value;
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
     }
-
-    return obj;
   }
 
-  var toDecimal = function toDecimal(value) {
-    if ((0, _isDecimal.default)(value)) {
-      return Number(value);
-    }
+  return target;
+}
 
-    if ((0, _isSexagesimal.default)(value)) {
-      return (0, _sexagesimalToDecimal.default)(value);
-    }
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
 
-    if ((0, _isValidCoordinate.default)(value)) {
-      var keys = (0, _getCoordinateKeys.default)(value);
+  return obj;
+}
 
-      if (Array.isArray(value)) {
-        return value.map(function (v, index) {
-          return [0, 1].includes(index) ? toDecimal(v) : v;
-        });
-      }
+var toDecimal = function toDecimal(value) {
+  if ((0, _isDecimal.default)(value)) {
+    return Number(value);
+  }
 
-      return _objectSpread(_objectSpread(_objectSpread({}, value), keys.latitude && _defineProperty({}, keys.latitude, toDecimal(value[keys.latitude]))), keys.longitude && _defineProperty({}, keys.longitude, toDecimal(value[keys.longitude])));
-    }
+  if ((0, _isSexagesimal.default)(value)) {
+    return (0, _sexagesimalToDecimal.default)(value);
+  }
+
+  if ((0, _isValidCoordinate.default)(value)) {
+    var keys = (0, _getCoordinateKeys.default)(value);
 
     if (Array.isArray(value)) {
-      return value.map(function (point) {
-        return (0, _isValidCoordinate.default)(point) ? toDecimal(point) : point;
+      return value.map(function (v, index) {
+        return [0, 1].includes(index) ? toDecimal(v) : v;
       });
     }
 
-    return value;
-  };
-
-  var _default = toDecimal;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(toDecimal_1);var getLatitude_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _getCoordinateKey = _interopRequireDefault(getCoordinateKey_1);
-
-  var _toDecimal = _interopRequireDefault(toDecimal_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
+    return _objectSpread(_objectSpread(_objectSpread({}, value), keys.latitude && _defineProperty({}, keys.latitude, toDecimal(value[keys.latitude]))), keys.longitude && _defineProperty({}, keys.longitude, toDecimal(value[keys.longitude])));
   }
 
-  var getLatitude = function getLatitude(point, raw) {
-    var latKey = (0, _getCoordinateKey.default)(point, constants.latitudeKeys);
-
-    if (typeof latKey === "undefined" || latKey === null) {
-      return;
-    }
-
-    var value = point[latKey];
-    return raw === true ? value : (0, _toDecimal.default)(value);
-  };
-
-  var _default = getLatitude;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(getLatitude_1);var getLongitude_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _getCoordinateKey = _interopRequireDefault(getCoordinateKey_1);
-
-  var _toDecimal = _interopRequireDefault(toDecimal_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
+  if (Array.isArray(value)) {
+    return value.map(function (point) {
+      return (0, _isValidCoordinate.default)(point) ? toDecimal(point) : point;
+    });
   }
 
-  var getLongitude = function getLongitude(point, raw) {
-    var latKey = (0, _getCoordinateKey.default)(point, constants.longitudeKeys);
+  return value;
+};
 
-    if (typeof latKey === "undefined" || latKey === null) {
-      return;
-    }
-
-    var value = point[latKey];
-    return raw === true ? value : (0, _toDecimal.default)(value);
-  };
-
-  var _default = getLongitude;
-  exports.default = _default;
+var _default$5 = toDecimal;
+toDecimal$1.default = _default$5;Object.defineProperty(getLatitude$1, "__esModule", {
+  value: true
 });
-getDefaultExportFromCjs(getLongitude_1);var toRad_1 = createCommonjsModule(function (module, exports) {
+getLatitude$1.default = void 0;
+var _constants$2 = constants;
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
+var _getCoordinateKey$1 = _interopRequireDefault$2(getCoordinateKey$1);
 
-  var toRad = function toRad(value) {
-    return value * Math.PI / 180;
+var _toDecimal$1 = _interopRequireDefault$2(toDecimal$1);
+
+function _interopRequireDefault$2(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
   };
+}
 
-  var _default = toRad;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(toRad_1);var robustAcos_1 = createCommonjsModule(function (module, exports) {
+var getLatitude = function getLatitude(point, raw) {
+  var latKey = (0, _getCoordinateKey$1.default)(point, _constants$2.latitudeKeys);
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var robustAcos = function robustAcos(value) {
-    if (value > 1) {
-      return 1;
-    }
-
-    if (value < -1) {
-      return -1;
-    }
-
-    return value;
-  };
-
-  var _default = robustAcos;
-  exports.default = _default;
-});
-getDefaultExportFromCjs(robustAcos_1);var getDistance_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _getLatitude = _interopRequireDefault(getLatitude_1);
-
-  var _getLongitude = _interopRequireDefault(getLongitude_1);
-
-  var _toRad = _interopRequireDefault(toRad_1);
-
-  var _robustAcos = _interopRequireDefault(robustAcos_1);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
+  if (typeof latKey === "undefined" || latKey === null) {
+    return;
   }
 
-  var getDistance = function getDistance(from, to) {
-    var accuracy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-    accuracy = typeof accuracy !== "undefined" && !isNaN(accuracy) ? accuracy : 1;
-    var fromLat = (0, _getLatitude.default)(from);
-    var fromLon = (0, _getLongitude.default)(from);
-    var toLat = (0, _getLatitude.default)(to);
-    var toLon = (0, _getLongitude.default)(to);
+  var value = point[latKey];
+  return raw === true ? value : (0, _toDecimal$1.default)(value);
+};
 
-    var distance = Math.acos((0, _robustAcos.default)(Math.sin((0, _toRad.default)(toLat)) * Math.sin((0, _toRad.default)(fromLat)) + Math.cos((0, _toRad.default)(toLat)) * Math.cos((0, _toRad.default)(fromLat)) * Math.cos((0, _toRad.default)(fromLon) - (0, _toRad.default)(toLon)))) * constants.earthRadius;
-
-    return Math.round(distance / accuracy) * accuracy;
-  };
-
-  var _default = getDistance;
-  exports.default = _default;
+var _default$4 = getLatitude;
+getLatitude$1.default = _default$4;var getLongitude$1 = {};Object.defineProperty(getLongitude$1, "__esModule", {
+  value: true
 });
-var getDistance = getDefaultExportFromCjs(getDistance_1);function locationMatcher() {
+getLongitude$1.default = void 0;
+var _constants$1 = constants;
+
+var _getCoordinateKey = _interopRequireDefault$1(getCoordinateKey$1);
+
+var _toDecimal = _interopRequireDefault$1(toDecimal$1);
+
+function _interopRequireDefault$1(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+var getLongitude = function getLongitude(point, raw) {
+  var latKey = (0, _getCoordinateKey.default)(point, _constants$1.longitudeKeys);
+
+  if (typeof latKey === "undefined" || latKey === null) {
+    return;
+  }
+
+  var value = point[latKey];
+  return raw === true ? value : (0, _toDecimal.default)(value);
+};
+
+var _default$3 = getLongitude;
+getLongitude$1.default = _default$3;var toRad$1 = {};Object.defineProperty(toRad$1, "__esModule", {
+  value: true
+});
+toRad$1.default = void 0;
+
+var toRad = function toRad(value) {
+  return value * Math.PI / 180;
+};
+
+var _default$2 = toRad;
+toRad$1.default = _default$2;var robustAcos$1 = {};Object.defineProperty(robustAcos$1, "__esModule", {
+  value: true
+});
+robustAcos$1.default = void 0;
+
+var robustAcos = function robustAcos(value) {
+  if (value > 1) {
+    return 1;
+  }
+
+  if (value < -1) {
+    return -1;
+  }
+
+  return value;
+};
+
+var _default$1 = robustAcos;
+robustAcos$1.default = _default$1;Object.defineProperty(getDistance$1, "__esModule", {
+  value: true
+});
+var default_1 = getDistance$1.default = void 0;
+
+var _getLatitude = _interopRequireDefault(getLatitude$1);
+
+var _getLongitude = _interopRequireDefault(getLongitude$1);
+
+var _toRad = _interopRequireDefault(toRad$1);
+
+var _robustAcos = _interopRequireDefault(robustAcos$1);
+
+var _constants = constants;
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+var getDistance = function getDistance(from, to) {
+  var accuracy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  accuracy = typeof accuracy !== "undefined" && !isNaN(accuracy) ? accuracy : 1;
+  var fromLat = (0, _getLatitude.default)(from);
+  var fromLon = (0, _getLongitude.default)(from);
+  var toLat = (0, _getLatitude.default)(to);
+  var toLon = (0, _getLongitude.default)(to);
+
+  var distance = Math.acos((0, _robustAcos.default)(Math.sin((0, _toRad.default)(toLat)) * Math.sin((0, _toRad.default)(fromLat)) + Math.cos((0, _toRad.default)(toLat)) * Math.cos((0, _toRad.default)(fromLat)) * Math.cos((0, _toRad.default)(fromLon) - (0, _toRad.default)(toLon)))) * _constants.earthRadius;
+
+  return Math.round(distance / accuracy) * accuracy;
+};
+
+var _default = getDistance;
+default_1 = getDistance$1.default = _default;function locationMatcher() {
   var allowedRadius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
   return function location(incoming, stored) {
-    var distance = getDistance(incoming, stored);
+    var distance = default_1(incoming, stored);
     return distance < allowedRadius;
   };
 }function isPrimitive(val) {
@@ -776,7 +708,7 @@ function getMultiplier(attr, attrWeights) {
   var metadata = metadataMatcher(attrWeights, maxUnmatchedAttrs);
   var location = locationMatcher(allowedRadius);
   return [metadata, location];
-}outcome = 'doesNotExist';
+}outcome = 'unknownDevice';
 
 function processDeviceProfiles() {
   var incomingJson = sharedState.get('forgeRock.device.profile').toString();
@@ -821,4 +753,4 @@ function processDeviceProfiles() {
   }
 }
 
-processDeviceProfiles();}());
+processDeviceProfiles();})();

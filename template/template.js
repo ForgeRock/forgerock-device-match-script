@@ -18,7 +18,7 @@
  * 1. `sharedState` provides access to incoming request
  * 2. `deviceProfilesDao` provides access to stored profiles
  * 3. `outcome` variable maps to auth tree node outcomes; values are
- *    'true', 'false', or 'doesNotExist' (notice _all_ are strings).
+ *    'true', 'false', or 'unknownDevice' (notice _all_ are strings).
  * ******************************************************************/
 
 /**
@@ -42,8 +42,8 @@ var realm = sharedState.get("realm").asString();
  */
 var storedProfiles = deviceProfilesDao.getDeviceProfiles(username, realm);
 
-// Default to `outcome` of 'doesNotExist'
-outcome = 'doesNotExist';
+// Default to `outcome` of 'unknownDevice'
+outcome = 'unknownDevice';
 
 if (storedProfiles) {
   var i = 0;
