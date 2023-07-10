@@ -1,5 +1,5 @@
 {
-  "name": "forgerock-device-match-script",
+  "name": "@forgerock/device-match-script",
   "version": "1.0.2",
   "description": "A script and development toolkit for AM's Device Match node.",
   "main": "index.js",
